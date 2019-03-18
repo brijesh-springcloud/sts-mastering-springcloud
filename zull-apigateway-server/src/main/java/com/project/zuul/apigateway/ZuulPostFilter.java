@@ -11,10 +11,10 @@ import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 
 @Component
-public class ZuulLoggingFilter extends ZuulFilter {
+public class ZuulPostFilter extends ZuulFilter {
 
-	private static final Logger logger = LoggerFactory.getLogger( ZuulLoggingFilter.class );
-	private static final String logPrefix = "<<<<< ZuulLoggingFilter >>>>>  ";
+	private static final Logger logger = LoggerFactory.getLogger( ZuulPostFilter.class );
+	private static final String logPrefix = "<<<<< ZuulPostFilter >>>>>  ";
 	
 	@Override
 	public boolean shouldFilter() {
@@ -22,8 +22,8 @@ public class ZuulLoggingFilter extends ZuulFilter {
 	}
 
 	@Override
-	public Object run() throws ZuulException {
-		
+	public Object run() throws ZuulException 
+	{
 		HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
 		
 		logger.info( logPrefix + " request : {} , Request URL {} ", request, request.getRequestURI() );
@@ -35,12 +35,14 @@ public class ZuulLoggingFilter extends ZuulFilter {
 
 	@Override
 	public String filterType() {
-		return "pre";
+		// TODO Auto-generated method stub
+		return "post";
 	}
 
 	@Override
 	public int filterOrder() {
-		return 1000;
+		// TODO Auto-generated method stub
+		return 1;
 	}
 
 }

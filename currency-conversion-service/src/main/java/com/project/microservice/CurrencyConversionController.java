@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -45,11 +46,12 @@ public class CurrencyConversionController {
 	
 	@GetMapping( "/feign/from/{from}/to/{to}/quantity/{quantity}" )
 	public CurrencyConversionBean convertCurrencyFeign( @PathVariable String from, @PathVariable String to, 
-												   @PathVariable BigDecimal quantity )
+												   @PathVariable BigDecimal quantity ) //, @RequestHeader(name="Authorization") String token  )
 	{
 		logger.info( logPrefix + " inside convertCurrencyFeign calling Exchange Service with parameters {} and {} ", from, to );
+		//logger.info( logPrefix + " Token == " + token );
 		
-		CurrencyConversionBean bean = proxy.retriveExchangeValue(from, to);
+		CurrencyConversionBean bean = proxy.retriveExchangeValue( from, to);
 		
 		bean.setQuantity( quantity );
 		bean.setTotalCalculatedAmount( bean.getConversionMultiple().multiply( quantity ) );

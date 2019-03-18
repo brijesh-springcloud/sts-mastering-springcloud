@@ -1,0 +1,46 @@
+# --- Adding OAuth2 security start ---
+zuul:
+  sensitive-headers: Cookie,Set-Cookie
+  routes:
+    oauth:
+      path: /oauth/**
+      url: http://localhost:8761/spring-oauth-server/oauth
+      
+security:
+  oauth2:
+    client:
+      client-id: USER_CLIENT_APP
+      client-secret: password
+      access-token-uri: http://localhost:8765/spring-oauth-server/oauth/token
+      
+    resource:
+      jwt:
+        key-value: 
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkvLRPs7R4LnD9Lh3L4zIi6olIg1lY9QvqfEQzKQgXt5+6Tm7EOrAWe/uQh3wJlWif/JN/hqFFL9z+9P8XBm0rvB3B0/EaUZQkwdu1prai1O+8NlwaK3iGhtQj+5C+qdO/AVEUvGtt6W1I351VI9qejfudU4VUCbbDYR90/om7SM0l3GMsgOPLkBjXnhkmsakW1ZfToGgJn7FdIrfB/j/GnoUKsVPu0f2r0oGWsF5pPsrcEYj16Qj2Xe3f2q8HjEADXeYNBcq/r5tbMwKA/ZBY6N5tPLghcKijme08D2FvP1/K3ngeYsIY/5tOKDZI4Lbmxo8BHpaKwfUwbu19i9DLwIDAQAB
+          -----END PUBLIC KEY-----
+      #id: USER_ADMIN_RESOURCE
+#           MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgnEzp25qlRJqe/IWf88olfkOl9a7tX4wgDrLLzguzMIAHdLv2do1qb48nPJPJYElD6wVTguokOTOND+4oFzJOob/t/6cQ65gPCXVo8OfN1jrternBEIu9t2FuSmn/Ica+JvIZ4NJFz1UnxY1fYGvWMjsMwpOZk8uU39Pu8ywyyaRPXYi0Sbk8vj35GjdwkhshBOUaE45JlZpBms6HerY45TBbHTiC9hFQ8slwEd8DIsLYhSlogmCC7hciOVlNEJxUoumq1M20wlizkWhxCyMQ/5OZMLDBzhK7+lgp9M3ZUdJFOgNKbkR/gdktWC4RZxp90t+Ztct6pHoNz5K/0jiZwIDAQAB
+
+
+# --- Adding OAuth2 security end ---
+
+logging:
+  level: 
+    org.springframework: DEBUG
+    
+hystrix:
+  shareSecurityContext: true
+  
+  
+feign:
+  hystrix:
+    enabled: true  
+
+#Hystrix Timeout issues
+ribbon:
+  eager-load:
+    enabled: true
+  
+
+ 
