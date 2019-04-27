@@ -30,6 +30,10 @@ public class ZuulPostFilter extends ZuulFilter {
 		
 		logger.info( logPrefix + " Authorization Header ::: " + request.getHeader( "Authorization" ) );
 		
+		logger.info( logPrefix + " Request Parameters ");
+		request.getParameterMap().forEach( (a,b) -> logger.info( logPrefix + a + " : " + b ) ); 
+
+		
 		return null;
 	}
 

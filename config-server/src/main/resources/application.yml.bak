@@ -1,0 +1,14 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/itbrijesh/central-config-repository
+          searchPaths: microservice1
+          username: itbrijesh
+          password: --password--

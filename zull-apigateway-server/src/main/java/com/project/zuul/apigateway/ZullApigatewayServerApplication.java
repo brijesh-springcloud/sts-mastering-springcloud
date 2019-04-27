@@ -8,11 +8,11 @@ import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import brave.sampler.Sampler;
-import feign.RequestInterceptor;
 
 
 @EnableEurekaClient
@@ -33,7 +33,18 @@ public class ZullApigatewayServerApplication {
 		return Sampler.ALWAYS_SAMPLE;
 	}
 	
+	// Added for Globally disabling CORS
+	@Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*");
+            }
+        };
+    }
 	
+	/*
 	// Added to call the Request Interceptor but some how not working....
 	@Bean
     public RequestInterceptor getUserFeignClientInterceptor() {
@@ -53,4 +64,5 @@ public class ZullApigatewayServerApplication {
 	        }
 	    };
 	 }
+	 */
 }

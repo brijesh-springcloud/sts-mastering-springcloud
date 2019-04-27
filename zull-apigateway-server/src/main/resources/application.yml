@@ -1,6 +1,8 @@
 # --- Adding OAuth2 security start ---
 zuul:
   sensitive-headers: Cookie,Set-Cookie
+  # Added to resolve issues related to CORS
+  ignored-headers: Access-Control-Allow-Credentials,Access-Control-Allow-Origin 
   routes:
     oauth:
       path: /oauth/**
@@ -15,6 +17,7 @@ security:
       
     resource:
       jwt:
+        #key-uri: classpath:public.txt
         key-value: 
           -----BEGIN PUBLIC KEY-----
           MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkvLRPs7R4LnD9Lh3L4zIi6olIg1lY9QvqfEQzKQgXt5+6Tm7EOrAWe/uQh3wJlWif/JN/hqFFL9z+9P8XBm0rvB3B0/EaUZQkwdu1prai1O+8NlwaK3iGhtQj+5C+qdO/AVEUvGtt6W1I351VI9qejfudU4VUCbbDYR90/om7SM0l3GMsgOPLkBjXnhkmsakW1ZfToGgJn7FdIrfB/j/GnoUKsVPu0f2r0oGWsF5pPsrcEYj16Qj2Xe3f2q8HjEADXeYNBcq/r5tbMwKA/ZBY6N5tPLghcKijme08D2FvP1/K3ngeYsIY/5tOKDZI4Lbmxo8BHpaKwfUwbu19i9DLwIDAQAB
@@ -41,6 +44,10 @@ feign:
 ribbon:
   eager-load:
     enabled: true
+    
+    
+   
+    
   
 
  
