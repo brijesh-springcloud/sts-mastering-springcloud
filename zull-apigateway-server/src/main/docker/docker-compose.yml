@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  
+  eureka-server:
+    image: itbrijesh143/spring-eureka-server
+    restart: always
+    ports:
+      - 8761:8761
+  
+  zull-server:
+    image: itbrijesh143/zull-apigateway-server
+    restart: always
+    ports:
+      - 8765:8765
+    depends_on: 
+      - eureka-server

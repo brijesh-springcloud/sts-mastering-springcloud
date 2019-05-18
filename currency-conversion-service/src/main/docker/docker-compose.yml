@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  
+  eureka-server:
+    image: itbrijesh143/spring-eureka-server
+    restart: always
+    ports:
+      - 8761:8761
+  
+  currency-conversion-service:
+    image: itbrijesh143/currency-conversion-service
+    restart: always
+    ports:
+      - 8100:8100
+    depends_on: 
+      - eureka-server

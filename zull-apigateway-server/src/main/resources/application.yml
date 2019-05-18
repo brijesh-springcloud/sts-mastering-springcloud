@@ -1,3 +1,15 @@
+spring:
+  application:
+    name: zull-api-gateway-server
+
+server:
+  port: 8765
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka  
+
 # --- Adding OAuth2 security start ---
 zuul:
   sensitive-headers: Cookie,Set-Cookie
@@ -6,14 +18,14 @@ zuul:
   routes:
     oauth:
       path: /oauth/**
-      url: http://localhost:8761/spring-oauth-server/oauth
+      url: http://eureka-server:8761/spring-oauth-server/oauth
       
 security:
   oauth2:
     client:
       client-id: USER_CLIENT_APP
       client-secret: password
-      access-token-uri: http://localhost:8765/spring-oauth-server/oauth/token
+      access-token-uri: http://zuul-server:8765/spring-oauth-server/oauth/token
       
     resource:
       jwt:

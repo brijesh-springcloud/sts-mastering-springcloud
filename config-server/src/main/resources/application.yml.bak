@@ -1,14 +1,30 @@
+
+logging:
+  level:
+    com.netflix: INFO
+
 server:
-  port: 9000
+  port: 8888
 
 spring:
   application:
     name: config-server
+
   cloud:
     config:
       server:
         git:
           uri: https://github.com/itbrijesh/central-config-repository
-          searchPaths: microservice1
-          username: itbrijesh
-          password: --password--
+          searchPaths: microservice1,account-microservice,spring-oauth-server
+          
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+                
+          
+# If you get any certificate issue, login to your github account and export the certificate from browser.
+# Run below command to import the same in jdk
+# keytool -import -alias github 
+#     -file C:\Users\bprajapati\Desktop\2019\certs\github.cer 
+#     -keystore %JAVA_HOME%\jre\lib\cacerts          
